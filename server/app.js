@@ -1,46 +1,66 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const fs = require('fs');
+const http = require('http');
+const path = require('path');
+const methods = require('methods');
+const express = require('express');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const cors = require('cors');
+const passport = require('passport');
+const errorhandler = require('errorhandler');
+const mongoose = require('mongoose');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+mongoose.promise = global.Promise;
 
-var app = express();
+const isProduction = process.env.NODE_ENV === 'production';
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+const app = express();
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+app.use(cors());
+
+app.use(require('morgan')('dev'));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret: 'AskRi', cookie: {maxAge: 60000}, resave: false, saveUninitialized: false}));
+app.use(errorhandler());
 
-app.use('/', index);
-app.use('/users', users);
+mongoose.connect('mongodb://localhost/askri');
+mongoose.set('debug', true);
 
-// catch 404 and forward to error handler
+
+require('./models/User');
+require('./config/passport');
+app.use(require('./routes'));
+
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+if(!isProduction){
+  app.use(function(err, req, res, next){
+      console.log(err.stack);
 
-  // render the error page
+      res.status(err.status || 500);
+
+      res.json({'errors': {
+          message: err.message,
+          error: err
+      }})
+  })
+}
+
+
+app.use(function(err, req,res, next){
   res.status(err.status || 500);
-  res.render('error');
+  res.json({'errors': {
+      message: err.message,
+      error: {}
+  }})
 });
 
-module.exports = app;
+const server = app.listen(8000, () => {
+  console.log('Listening on http://localhost:8000/');
+});
