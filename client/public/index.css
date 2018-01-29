@@ -12,7 +12,7 @@ body, html {
 h1 {
   font-family: 'Montserrat';
   color: #fff;
-  font-size: 120px;
+  font-size: 100px;
 }
 
 h2 {
@@ -30,7 +30,7 @@ p {
 
 .text-white {
   font-family: 'Raleway';
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .c-heading {
@@ -41,4 +41,30 @@ p {
   border-radius: 10px;
   border-style: none;
   padding: 10px;
+}
+
+.c-input {
+  border-style: none;
+  border-bottom-style: solid;
+  border-radius: 0px;
+  margin-bottom: 30px;
+}
+
+.btn-primary {
+  background-color: #2d89e5;
+  font-family: 'Open Sans';
+  padding: 10px;
+}
+
+.form-text {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 20px;
+}
+
+.form-control:focus {
+  transition: .2s;
+  border-color: #2d89e5;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
