@@ -5,9 +5,9 @@ const jwt = require('jsonwebtoken');
 const secret = require('../config').secret;
 
 const UserSchema = new mongoose.Schema({
-  username: {type: String, required: [true, "can't be empty"], unique: true, index: true},
-  email: {type: String, required: [true, "can't be empty"], unique: true, index: true},
-  questions: [{type: mongoose.Schema.Types.ObjectId, ref: 'Question'}],
+  username: { type: String, required: [true, "can't be empty"], unique: true, index: true },
+  email: { type: String, required: [true, "can't be empty"], unique: true, index: true },
+  questions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Question' }],
   hash: String,
   salt: String,
 }, { timestamps: true });
