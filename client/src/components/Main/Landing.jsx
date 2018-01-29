@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Input } from '../common';
+
 const Landing = () => (
   <div className="container">
     <div className="row">
@@ -9,12 +11,18 @@ const Landing = () => (
         <div className="card">
           <div className="card-body">
             <form>
-              <div className="form-group">
-                <input type="email" className="form-control c-input" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-              </div>
-              <div className="form-group">
-                <input type="password" className="form-control c-input" id="exampleInputPassword1" placeholder="Password" />
-              </div>
+              <Input
+                hideLabel
+                type="email"
+                placeholder="Vaša Email Adresa"
+                name="email"
+              />
+              <Input
+                hideLabel
+                type="password"
+                placeholder="Vaša Lozinka"
+                name="password"
+              />
               <button type="submit" className="btn btn-primary form-control">Prijava</button>
               <small id="emailHelp" className="form-text text-muted">Nemate račun?</small>
             </form>
