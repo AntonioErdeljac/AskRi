@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Raleway:200');
+
+body, html {
+  background: url(bg.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+h1 {
+  font-family: 'Montserrat';
+  color: #fff;
+  font-size: 120px;
+}
+
+h2 {
+  font-family: 'Montserrat';
+}
+
+h3 {
+  font-family: 'Montserrat';
+}
+
+p {
+  font-family: 'Open Sans';
+  font-size: 18px;
+}
+
+.text-white {
+  font-family: 'Raleway';
+  font-size: 30px;
+}
+
+.c-heading {
+  margin-top: 100px;
+}
+
+.card {
+  border-radius: 10px;
+  border-style: none;
+  padding: 10px;
+}
