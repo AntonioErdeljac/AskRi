@@ -28,7 +28,7 @@ UserSchema.methods.generateJWT = function() {
   const today = new Date();
   const exp = new Date(today);
 
-  exp.setTime(today.getDate() + 60);
+  exp.setDate(today.getDate() + 60);
 
   return jwt.sign({
     username: this.username,
