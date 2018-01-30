@@ -10,6 +10,8 @@ export default (state = {}, action) => {
         ...state,
         errors: action.error ? action.payload.errors : null,
       };
+    case 'UNLOAD_LANDING_PAGE':
+      return {};
     default:
       return state;
   }

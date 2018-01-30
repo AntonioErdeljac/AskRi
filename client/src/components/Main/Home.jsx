@@ -1,7 +1,25 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
 
-const Home = () => (
-  <h1>Home</h1>
-);
+import { Navbar, Feed } from '../Main';
 
-export default Home;
+const Home = (props) => {
+  const { currentUser } = props;
+  return (
+    <div>
+      <Navbar currentUser={currentUser} />
+      <Feed />
+    </div>
+  );
+};
+
+const mapStateToProps = state => ({
+  currentUser: state.common.currentUser,
+});
+
+Home.propTypes = {
+  currentUser: PropTypes.shape({}).isRequired,
+};
+
+export default connect(mapStateToProps, null)(Home);

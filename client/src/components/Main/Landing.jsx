@@ -14,6 +14,11 @@ class Landing extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentWillUnmount() {
+    const { onUnload } = this.props;
+    onUnload();
+  }
+
   handleChange(value, key) {
     const { onChange } = this.props;
 
@@ -75,6 +80,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: 'UPDATE_FIELD_AUTH', value, key }),
   onSubmit: payload =>
     dispatch({ type: 'LOGIN', payload }),
+  onUnload: () =>
+    dispatch({ type: 'UNLOAD_LANDING_PAGE' }),
 });
 
 Landing.defaultProps = {
