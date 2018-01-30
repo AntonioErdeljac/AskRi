@@ -1,37 +1,62 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { QuestionsList } from '../common';
 import agent from '../../agent';
 
 class Feed extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleIgnore = this.handleIgnore.bind(this);
+  }
   componentWillMount() {
-    console.log(this.state);
+    const { onLoad } = this.props;
+
+    onLoad(agent.Questions.private());
+  }
+  handleIgnore(id) {
+    const { onIgnore } = this.props;
+    onIgnore(agent.Questions.delete(id), id);
   }
   render() {
+    const { questions, currentUser } = this.props;
     return (
       <div className="container mt-3">
-        <div className="row">
-          <div className="col-md-6 offset-md-3 col-12">
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">
-                  <img src="http://unmr-nl.science.uu.nl/sites/default/files/user_placeholder_man_0.jpg" height="50" width="50" className="nav-img mr-3" alt="" />
-                  Riječanin <span className="text-muted">pita:</span>
-                </h5>
-                <p className="card-text">Kako si?</p>
-                <h6 className="card-subtitle mb-2 text-muted mt-3">Prije 2 sata</h6>
-              </div>
-              <div className="card-footer">
-                <button className="btn btn-primary">Odgovori</button>
-                <button className="btn btn-danger mx-3">Ignoriraj</button>
-                <i className="fa fa-star-o fa-2x  c-favorite float-right" />
-              </div>
-            </div>
-          </div>
+        <div className="row mt-3">
+          <QuestionsList
+            currentUser={currentUser}
+            handleIgnore={this.handleIgnore}
+            questions={questions}
+          />
         </div>
       </div>
     );
   }
 }
 
-export default Feed;
+const mapDispatchToProps = dispatch => ({
+  onLoad: payload =>
+    dispatch({ type: 'FEED_PAGE_LOADED', payload }),
+  onIgnore: (payload, id) =>
+    dispatch({ type: 'REMOVE_QUESTION', payload, id }),
+});
+
+const mapStateToProps = state => ({
+  ...state.feed,
+  currentUser: state.common.currentUser,
+});
+
+Feed.defaultProps = {
+  questions: null,
+};
+
+Feed.propTypes = {
+  onLoad: PropTypes.func.isRequired,
+  onIgnore: PropTypes.func.isRequired,
+  currentUser: PropTypes.shape({}).isRequired,
+  questions: PropTypes.arrayOf(PropTypes.shape({})),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Feed);

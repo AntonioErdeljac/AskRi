@@ -40,4 +40,26 @@ router.get('/private', auth.required, (req, res, next) => {
   }).catch(next);
 });
 
+router.param('id', (req,res, next, id) => {
+  Question.findById(id).then(question => {
+    if(!question) { return res.sendStatus(404); }
+
+    req.question = question;
+    return next();
+  }).catch(next);
+});
+
+router.delete('/:id', auth.required, (req, res, next) => {
+  User.findById(req.payload.id).then(user => {
+    if(!user) { return res.sendStatus(422); }
+
+    if(user._id.toString() === req.question.receiver.toString()) {
+      return req.question.remove().then(() => {
+        return res.sendStatus(200);
+      });
+    }
+    return res.sendStatus(403);
+  }).catch(next);
+});
+
 module.exports = router;

@@ -5,6 +5,7 @@
   "dependencies": {
     "eslint": "^4.16.0",
     "eslint-config-airbnb": "^16.1.0",
+    "moment": "^2.20.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

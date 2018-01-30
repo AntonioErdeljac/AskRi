@@ -9,8 +9,10 @@ const QuestionSchema = new mongoose.Schema({
 
 QuestionSchema.methods.toJSON = function() {
   return {
+    id: this._id,
     answer: this.answered ? this.answer : undefined,
     question: this.question,
+    createdAt: this.createdAt,
   };
 };
 

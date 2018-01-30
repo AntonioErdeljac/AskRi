@@ -105,6 +105,15 @@ p {
   margin-top:7px;
 }
 
+.link-blue {
+  color: #2d89e5;
+}
+
+.no-questions {
+  color: rgba(0,0,0,.7);
+  font-family: 'Open Sans';
+}
+
 .card {
   border-radius: 5px;
   border-style: none;
