@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import agent from '../../agent';
-import { Input } from '../common';
+import { Input, Errors } from '../common';
 
 class Landing extends React.Component {
   constructor(props) {
@@ -27,14 +28,16 @@ class Landing extends React.Component {
   }
 
   render() {
+    const { errors } = this.props;
     return (
-      <div className="container">
+      <div className="container-fluid special-bg">
         <div className="row">
           <div className="col-md-6 col-lg-4 offset-lg-4 offset-md-3 col-12 c-heading">
             <h1 className="mt-3 text-center">AskRi</h1>
             <p className="text-white text-center">Što Riječani misle o tebi?</p>
             <div className="card">
               <div className="card-body">
+                {errors && <Errors errors={errors} />}
                 <form onSubmit={this.handleSubmit}>
                   <Input
                     hideLabel
@@ -64,6 +67,7 @@ class Landing extends React.Component {
 
 const mapStateToProps = state => ({
   ...state.auth,
+  ...state.common,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -76,6 +80,7 @@ const mapDispatchToProps = dispatch => ({
 Landing.defaultProps = {
   email: null,
   password: null,
+  errors: null,
 };
 
 Landing.propTypes = {
@@ -83,6 +88,7 @@ Landing.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   email: PropTypes.string,
   password: PropTypes.string,
+  errors: PropTypes.shape({}),
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Landing);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Landing));

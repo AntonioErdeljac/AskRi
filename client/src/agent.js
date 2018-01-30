@@ -5,21 +5,29 @@ const superagent = superagentPromise(_superagent, global.Promise);
 
 const API_ROOT = 'http://localhost:8000/api';
 
+let token = null;
+
+const tokenPlugin = (req) => {
+  if (token) {
+    req.set('Authorization', `Token ${token}`);
+  }
+};
+
 const responseBody = res => res.body;
 
 const requests = {
   get: url =>
-    superagent.get(`${API_ROOT}${url}`).then(responseBody),
+    superagent.get(`${API_ROOT}${url}`).use(tokenPlugin).then(responseBody),
   post: (url, body) =>
-    superagent.post(`${API_ROOT}${url}`, body).then(responseBody),
+    superagent.post(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
 };
 
 const Auth = {
+  current: () =>
+    requests.get('/user/current'),
   login: (email, password) =>
     requests.post('/user/login', { user: { email, password } }),
 };
-
-let token = null;
 
 export default {
   Auth,

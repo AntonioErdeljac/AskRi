@@ -2,11 +2,21 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:200');
 
 body, html {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.special-bg {
   background: url(bg.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  height: 100%;
+  width: 100%;
 }
 
 h1 {
