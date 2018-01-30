@@ -47,7 +47,7 @@ router.post('/login', (req, res, next) => {
       user.token = user.generateJWT();
       return res.json({user: user.toAuthJSON()});
     } else {
-      return res.json(info);
+      return res.status(422).json(info);
     }
   })(req, res, next);
 });
