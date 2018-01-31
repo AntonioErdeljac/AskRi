@@ -70,7 +70,7 @@ router.post('/:id/answer', auth.required, (req, res, next) => {
   User.findById(req.payload.id).then(user => {
     if(!user) { return res.sendStatus(402); }
 
-    if(user._id.toString() === req.question.receiver.toString()) {
+    if(user._id.toString() === req.question.receiver._id.toString()) {
       if(!req.body.answer.answer) {
         return res.status(402).json({ errors: { answer: 'is required' } });
       }

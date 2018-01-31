@@ -40,6 +40,8 @@ const Questions = {
     requests.get(`/question/profile/${username}`),
   new: (user, question) =>
     requests.post('/question/new', { question: { question, receiver: user } }),
+  answer: (id, answer) =>
+    requests.post(`/question/${id}/answer`, { answer: { answer } }),
 };
 
 const Profile = {

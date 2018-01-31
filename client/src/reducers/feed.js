@@ -10,6 +10,16 @@ export default (state = {}, action) => {
         ...state,
         questions: state.questions.filter(question => question.id !== action.id),
       };
+    case 'SUBMIT_ANSWER':
+      return {
+        ...state,
+        questions: state.questions.map((question) => {
+          if (question.id === action.payload.question.id) {
+            return action.payload.question;
+          }
+          return question;
+        }),
+      };
     case 'LOGOUT':
       return {};
     default:
