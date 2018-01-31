@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "classnames": "^2.2.5",
     "eslint": "^4.16.0",
     "eslint-config-airbnb": "^16.1.0",
     "moment": "^2.20.1",

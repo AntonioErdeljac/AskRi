@@ -56,7 +56,7 @@ class QuestionCard extends React.Component {
             >
               Ignoriraj
             </button>
-            <i className="fa fa-star-o fa-2x  c-favorite float-right" />
+            <i className="fas fa-star fa-2x  c-favorite float-right" />
           </div>
       : null}
       </div>

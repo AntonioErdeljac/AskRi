@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import cn from 'classnames';
 
 import { Input } from '../common';
 
 const Navbar = (props) => {
-  const { currentUser, onClickLogout } = props;
+  const { currentUser, onClickLogout, location } = props;
+  console.log(props);
   return (
     <nav className="navbar navbar-expand-lg bg-white">
       <Link to="/" className="color-blue" href="#i">AskRi</Link>
@@ -17,13 +19,22 @@ const Navbar = (props) => {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto float-right">
           <li className="nav-item">
-            <a className="nav-link active" href="#i">Početna <span className="sr-only">(current)</span></a>
+            <Link to="/" className={cn('nav-link', { active: location.pathname === '/' })}>
+              <i className="fas fa-question-circle icon-nav mx-3" />Pitanja
+            </Link>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#i">Pitanja <span className="sr-only">(current)</span></a>
+            <Link to={`/${currentUser.username}`} className={cn('nav-link', { active: location.pathname === `/${currentUser.username}` })}>
+              <i className="fas fa-user mx-3 icon-nav" />Moj Profil
+            </Link>
           </li>
         </ul>
         <ul className="navbar-nav float-right">
+          <li className="nav-item mt-3">
+            <p className="nav-link">
+              {currentUser.username}
+            </p>
+          </li>
           <li className="nav-item">
             <div className="dropdown">
               <button className="btn btn-secondary dropdown-toggle c-invisible" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,4 +61,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: 'LOGOUT' }),
 });
 
-export default connect(null, mapDispatchToProps)(Navbar);
+export default withRouter(connect(null, mapDispatchToProps)(Navbar));

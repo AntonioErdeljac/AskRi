@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import agent from './agent';
 import { Main } from './components/Main';
@@ -41,4 +42,4 @@ App.propTypes = {
   appLoaded: PropTypes.bool,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
