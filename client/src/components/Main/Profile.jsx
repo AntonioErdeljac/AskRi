@@ -58,20 +58,22 @@ class Profile extends React.Component {
     return (
       <div className="container mt-3">
         <div className="row mt-3">
-          <div className="col-md-6 offset-md-3 col-12">
-            <div className="card">
+          <div className="col-md-6 offset-md-3 col-12 mt-3">
+            <div className="card mt-3">
               <div className="card-body">
-                <p className="card-text">
+                <div className="card-text">
                   Pitaj <b>@{match.params.username}</b>
                   {showSuccess ?
-                    <div className="alert alert-success" role="alert">
-                    Vaša poruka je poslana!
+                    <div className=" my-3 success-message">
+                      <div>
+                        Vaša poruka je poslana!
+                      </div>
                     </div>
                   :
                     <textarea value={this.state.question} onChange={ev => this.handleChange(ev.target.value)} placeholder="Postavi mi pitanje" className="form-control my-3" />
                   }
                   <button onClick={this.handleSubmit} className="btn btn-primary">{showSuccess ? 'Pitaj ponovo' : 'Pošalji'}</button>
-                </p>
+                </div>
               </div>
             </div>
           </div>
@@ -97,9 +99,17 @@ const mapStateToProps = state => ({
   currentUser: state.common.currentUser,
 });
 
+Profile.defaultProps = {
+  currentUser: null,
+  questions: [],
+};
+
 Profile.propTypes = {
   match: PropTypes.shape({}).isRequired,
   onLoad: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  currentUser: PropTypes.shape({}),
+  questions: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Profile));

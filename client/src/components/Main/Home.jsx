@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Navbar, Feed } from '../Main';
+import { Feed } from '../Main';
 
 const Home = (props) => {
   const { currentUser } = props;
   return (
-    <Feed />
+    <Feed currentUser={currentUser} />
   );
 };
 

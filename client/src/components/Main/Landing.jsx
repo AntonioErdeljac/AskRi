@@ -39,7 +39,7 @@ class Landing extends React.Component {
   handleSubmit(ev) {
     ev.preventDefault();
     const { onSubmit, email, password, onRegister, username } = this.props;
-    const { login, register } = this.state;
+    const { login } = this.state;
 
     if (login) {
       onSubmit(agent.Auth.login(email, password));
@@ -83,7 +83,7 @@ class Landing extends React.Component {
                     name="password"
                   />
                   <button type="submit" className="btn btn-primary form-control">{login ? 'Prijava' : 'Registracija'}</button>
-                  <small id="emailHelp" onClick={this.handleToggleType} className="form-text text-muted">{login ? 'Nemate račun?' : 'Već ste registrirani?'}</small>
+                  <small onClick={this.handleToggleType} className="form-text text-muted noviracun">{login ? 'Nemate račun?' : 'Već ste registrirani?'}</small>
                 </form>
               </div>
             </div>
@@ -114,6 +114,7 @@ Landing.defaultProps = {
   email: null,
   password: null,
   errors: null,
+  username: null,
 };
 
 Landing.propTypes = {
@@ -122,6 +123,9 @@ Landing.propTypes = {
   email: PropTypes.string,
   password: PropTypes.string,
   errors: PropTypes.shape({}),
+  onUnload: PropTypes.func.isRequired,
+  onRegister: PropTypes.func.isRequired,
+  username: PropTypes.string,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Landing));

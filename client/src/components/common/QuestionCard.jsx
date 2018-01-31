@@ -1,4 +1,5 @@
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -33,7 +34,7 @@ class QuestionCard extends React.Component {
   }
 
   render() {
-    const { currentUser, handleAnswer, handleIgnore, question } = this.props;
+    const { currentUser, handleIgnore, question } = this.props;
     return (
       <div className="card my-3">
         <div className="card-body">
@@ -63,6 +64,18 @@ class QuestionCard extends React.Component {
     );
   }
 }
+
+QuestionCard.defaultProps = {
+  currentUser: null,
+  handleIgnore: null,
+};
+
+QuestionCard.propTypes = {
+  submitAnswer: PropTypes.func.isRequired,
+  question: PropTypes.shape({}).isRequired,
+  currentUser: PropTypes.shape({}),
+  handleIgnore: PropTypes.func,
+};
 
 const mapDispatchToProps = dispatch => ({
   submitAnswer: payload =>

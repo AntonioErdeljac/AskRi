@@ -20,4 +20,18 @@ const QuestionsList = (props) => {
   );
 };
 
+QuestionsList.defaultProps = {
+  currentUser: null,
+  handleAnswer: null,
+  handleIgnore: null,
+  questions: [],
+};
+
+QuestionsList.propTypes = {
+  currentUser: PropTypes.shape({}),
+  questions: PropTypes.arrayOf(PropTypes.shape({})),
+  handleAnswer: PropTypes.func,
+  handleIgnore: PropTypes.func,
+};
+
 export default QuestionsList;

@@ -31,13 +31,15 @@ class Feed extends React.Component {
             questions={questions}
           />
           {questions && questions.length === 0 &&
-          <div className="card">
-            <div className="card-body">
-              <h3 className="no-questions">
-                Trenutno nema pitanja za tebe, podijeli svoj profil da biš dobio pitanja!
+          <div className="col-md-6 offset-md-3 col-12 mt-3">
+            <div className="card">
+              <div className="card-body">
+                <h3 className="no-questions">
+                Trenutno nema pitanja za tebe, podijeli ili stavi na story svoj profil da biš dobio pitanja!
                 <br />
-                <a className="link-blue my-3" href={`http://www.askri.com/${currentUser.username}`}>www.askri.com/{currentUser.username}</a>
-              </h3>
+                  <a className="link-blue my-3 special-link" href={`http://www.askri.com/${currentUser.username}`}>www.askri.com/{currentUser.username}</a>
+                </h3>
+              </div>
             </div>
           </div>}
         </div>

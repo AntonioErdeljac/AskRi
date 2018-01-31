@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -20,10 +21,12 @@ class Main extends React.Component {
     return (
       <span>
         {currentUser && <Navbar currentUser={currentUser} />}
-        <Switch>
-          <Route path="/" exact component={currentUser ? Home : Landing} />
-          <Route path="/:username" exact component={Profile} />
-        </Switch>
+        <div className={cn({ content: currentUser, full: !currentUser })}>
+          <Switch>
+            <Route path="/" exact component={currentUser ? Home : Landing} />
+            <Route path="/:username" exact component={Profile} />
+          </Switch>
+        </div>
       </span>
     );
   }

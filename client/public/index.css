@@ -14,6 +14,32 @@ body, html {
   color:rgba(45, 137, 229, .9) !important;
 }
 
+.special-link {
+  font-family: 'Montserrat';
+}
+
+.success-message {
+  color: rgba(0,0,0,.5);
+  font-family: 'Montserrat';
+}
+
+.content {
+  margin-bottom: 100px;
+}
+
+.full {
+  height: 100%;
+}
+
+.nav-span {
+  margin-top: 60px !important;
+  display: block;
+}
+
+.noviracun {
+  cursor: pointer;
+}
+
 .icon-nav {
   font-size: 20px !important;
 }
