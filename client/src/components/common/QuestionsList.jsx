@@ -16,16 +16,6 @@ const QuestionsList = (props) => {
           question={question}
         />
       ))}
-      {questions && questions.length === 0 &&
-      <div className="card">
-        <div className="card-body">
-          <h3 className="no-questions">
-        Trenutno nema pitanja za tebe, podijeli svoj profil da biš dobio pitanja!
-        <br />
-            <a className="link-blue my-3" href={`http://www.askri.com/${currentUser.username}`}>www.askri.com/{currentUser.username}</a>
-          </h3>
-        </div>
-      </div>}
     </div>
   );
 };

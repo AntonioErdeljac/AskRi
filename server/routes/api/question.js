@@ -31,6 +31,7 @@ router.get('/private', auth.required, (req, res, next) => {
     if(!user) { return res.sendStatus(402); }
 
     return Question.find({receiver: user})
+    .sort({createdAt: 'desc'})
     .populate('receiver')
     .then(questions => {
       return res.json({
@@ -95,6 +96,7 @@ router.param('username', (req, res, next, username) => {
 
 router.get('/profile/:username', auth.optional, (req, res, next) => {
   Question.find({receiver: req.profile, answered: true})
+  .sort({createdAt: 'desc'})
   .populate('receiver')
   .then(questions => {
     return res.json({
