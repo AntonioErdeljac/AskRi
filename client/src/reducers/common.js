@@ -13,6 +13,7 @@ export default (state = {}, action) => {
         redirectTo: null,
       };
     case 'LOGIN':
+    case 'REGISTER':
       return {
         ...state,
         token: action.error ? null : action.payload.user.token,

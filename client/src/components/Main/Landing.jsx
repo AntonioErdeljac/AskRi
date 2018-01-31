@@ -10,8 +10,14 @@ class Landing extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      register: false,
+      login: true,
+    };
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleToggleType = this.handleToggleType.bind(this);
   }
 
   componentWillUnmount() {
@@ -25,15 +31,26 @@ class Landing extends React.Component {
     onChange(value, key);
   }
 
+  handleToggleType() {
+    const { register, login } = this.state;
+    this.setState({ register: !register, login: !login });
+  }
+
   handleSubmit(ev) {
     ev.preventDefault();
-    const { onSubmit, email, password } = this.props;
+    const { onSubmit, email, password, onRegister, username } = this.props;
+    const { login, register } = this.state;
 
-    onSubmit(agent.Auth.login(email, password));
+    if (login) {
+      onSubmit(agent.Auth.login(email, password));
+    } else {
+      onRegister(agent.Auth.register(username, email, password));
+    }
   }
 
   render() {
     const { errors } = this.props;
+    const { login, register } = this.state;
     return (
       <div className="container-fluid special-bg">
         <div className="row">
@@ -44,22 +61,29 @@ class Landing extends React.Component {
               <div className="card-body">
                 {errors && <Errors errors={errors} />}
                 <form onSubmit={this.handleSubmit}>
+                  {register ? <Input
+                    hideLabel
+                    type="username"
+                    handleChange={this.handleChange}
+                    placeholder="Vaše korisničko ime"
+                    name="username"
+                  /> : null}
                   <Input
                     hideLabel
                     type="email"
                     handleChange={this.handleChange}
-                    placeholder="Vaš Email"
+                    placeholder="Vaš email"
                     name="email"
                   />
                   <Input
                     hideLabel
                     type="password"
                     handleChange={this.handleChange}
-                    placeholder="Vaša Lozinka"
+                    placeholder="Vaša lozinka"
                     name="password"
                   />
-                  <button type="submit" className="btn btn-primary form-control">Prijava</button>
-                  <small id="emailHelp" className="form-text text-muted">Nemate račun?</small>
+                  <button type="submit" className="btn btn-primary form-control">{login ? 'Prijava' : 'Registracija'}</button>
+                  <small id="emailHelp" onClick={this.handleToggleType} className="form-text text-muted">{login ? 'Nemate račun?' : 'Već ste registrirani?'}</small>
                 </form>
               </div>
             </div>
@@ -80,6 +104,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: 'UPDATE_FIELD_AUTH', value, key }),
   onSubmit: payload =>
     dispatch({ type: 'LOGIN', payload }),
+  onRegister: payload =>
+    dispatch({ type: 'REGISTER', payload }),
   onUnload: () =>
     dispatch({ type: 'UNLOAD_LANDING_PAGE' }),
 });

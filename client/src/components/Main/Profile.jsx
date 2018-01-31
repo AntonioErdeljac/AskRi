@@ -32,6 +32,7 @@ class Profile extends React.Component {
     const { onSubmit, match } = this.props;
     ev.preventDefault();
 
+    this.setState({question: ''});
     onSubmit(agent.Questions.new(match.params.username, this.state.question));
   }
 

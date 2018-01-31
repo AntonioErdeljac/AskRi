@@ -29,6 +29,8 @@ const Auth = {
     requests.get('/user/current'),
   login: (email, password) =>
     requests.post('/user/login', { user: { email, password } }),
+  register: (username, email, password) =>
+    requests.post('/user/new', { user: { username, email, password } }),
 };
 
 const Questions = {
