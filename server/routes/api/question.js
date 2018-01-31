@@ -62,4 +62,41 @@ router.delete('/:id', auth.required, (req, res, next) => {
   }).catch(next);
 });
 
+router.post('/:id/answer', auth.required, (req, res, next) => {
+  User.findById(req.payload.id).then(user => {
+    if(!user) { return res.sendStatus(402); }
+
+    if(user._id.toString() === req.question.receiver.toString()) {
+      if(!req.body.answer.answer) {
+        return res.status(402).json({ errors: { answer: 'is required' } });
+      }
+      req.question.answer = req.body.answer.answer;
+      req.question.answered = true;
+      return req.question.save().then(() => {
+        return res.json({ question: req.question });
+      });
+    }
+    return res.sendStatus(403);
+  }).catch(next);
+});
+
+router.param('username', (req, res, next, username) => {
+  User.findOne({ username: username }).then(user => {
+    if(!user) { return res.sendStatus(404); }
+
+    req.profile = user;
+    return next();
+  }).catch(next);
+});
+
+router.get('/profile/:username', auth.optional, (req, res, next) => {
+  Question.find({receiver: req.profile, answered: true}).then(questions => {
+    return res.json({
+      questions: questions.map(question => {
+        return question.toJSON();
+      }),
+    });
+  }).catch(next);
+});
+
 module.exports = router;

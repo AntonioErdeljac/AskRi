@@ -7,10 +7,7 @@ import { Navbar, Feed } from '../Main';
 const Home = (props) => {
   const { currentUser } = props;
   return (
-    <div>
-      <Navbar currentUser={currentUser} />
-      <Feed />
-    </div>
+    <Feed />
   );
 };
 

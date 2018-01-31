@@ -36,10 +36,18 @@ const Questions = {
     requests.get('/question/private'),
   delete: id =>
     requests.del(`/question/${id}`),
+  byUsername: username =>
+    requests.get(`/question/profile/${username}`),
+};
+
+const Profile = {
+  get: username =>
+    requests.get(`/profiles/${username}`),
 };
 
 export default {
   Auth,
   Questions,
+  Profile,
   setToken: (_token) => { token = _token; },
 };

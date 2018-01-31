@@ -48,7 +48,6 @@ UserSchema.methods.toAuthJSON = function() {
 UserSchema.methods.toJSON = function() {
   return {
     username: this.username,
-    questions: this.questions,
   };
 };
 

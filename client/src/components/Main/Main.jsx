@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
 
-import { Landing, Home } from '../Main';
+import { Landing, Home, Profile, Navbar } from '../Main';
 
 class Main extends React.Component {
   componentWillReceiveProps(nextProps) {
@@ -18,9 +18,13 @@ class Main extends React.Component {
   render() {
     const { currentUser } = this.props;
     return (
-      <Switch>
-        <Route path="/" exact component={currentUser ? Home : Landing} />
-      </Switch>
+      <span>
+        {currentUser && <Navbar currentUser={currentUser} />}
+        <Switch>
+          <Route path="/" exact component={currentUser ? Home : Landing} />
+          <Route path="/:username" exact component={Profile} />
+        </Switch>
+      </span>
     );
   }
 }
