@@ -13,6 +13,7 @@ QuestionSchema.methods.toJSON = function() {
     answer: this.answered ? this.answer : undefined,
     question: this.question,
     createdAt: this.createdAt,
+    receiver: this.receiver,
   };
 };
 

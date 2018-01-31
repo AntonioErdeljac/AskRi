@@ -10,6 +10,8 @@ export default (state = {}, action) => {
         ...state,
         questions: state.questions.filter(question => question.id !== action.id),
       };
+    case 'LOGOUT':
+      return {};
     default:
       return state;
   }

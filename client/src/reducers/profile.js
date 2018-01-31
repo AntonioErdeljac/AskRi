@@ -6,6 +6,8 @@ export default (state = {}, action) => {
         profile: action.payload[0].user,
         questions: action.payload[1].questions,
       };
+    case 'LOGOUT':
+      return {};
     default:
       return state;
   }

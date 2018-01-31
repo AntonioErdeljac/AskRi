@@ -30,7 +30,9 @@ router.get('/private', auth.required, (req, res, next) => {
   User.findById(req.payload.id).then((user) => {
     if(!user) { return res.sendStatus(402); }
 
-    return Question.find({receiver: user}).then(questions => {
+    return Question.find({receiver: user})
+    .populate('receiver')
+    .then(questions => {
       return res.json({
         questions: questions.map(question => {
           return question.toJSON();
@@ -41,7 +43,9 @@ router.get('/private', auth.required, (req, res, next) => {
 });
 
 router.param('id', (req,res, next, id) => {
-  Question.findById(id).then(question => {
+  Question.findById(id)
+  .populate('receiver')
+  .then(question => {
     if(!question) { return res.sendStatus(404); }
 
     req.question = question;
@@ -53,7 +57,7 @@ router.delete('/:id', auth.required, (req, res, next) => {
   User.findById(req.payload.id).then(user => {
     if(!user) { return res.sendStatus(422); }
 
-    if(user._id.toString() === req.question.receiver.toString()) {
+    if(user._id.toString() === req.question.receiver._id.toString()) {
       return req.question.remove().then(() => {
         return res.sendStatus(200);
       });
@@ -90,7 +94,9 @@ router.param('username', (req, res, next, username) => {
 });
 
 router.get('/profile/:username', auth.optional, (req, res, next) => {
-  Question.find({receiver: req.profile, answered: true}).then(questions => {
+  Question.find({receiver: req.profile, answered: true})
+  .populate('receiver')
+  .then(questions => {
     return res.json({
       questions: questions.map(question => {
         return question.toJSON();

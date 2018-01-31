@@ -38,6 +38,8 @@ const Questions = {
     requests.del(`/question/${id}`),
   byUsername: username =>
     requests.get(`/question/profile/${username}`),
+  new: (user, question) =>
+    requests.post('/question/new', { question: { question, receiver: user } }),
 };
 
 const Profile = {

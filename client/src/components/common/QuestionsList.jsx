@@ -9,6 +9,7 @@ const QuestionsList = (props) => {
     <div className="col-md-6 offset-md-3 col-12 mt-3">
       {(questions || []).map(question => (
         <QuestionCard
+          currentUser={currentUser}
           key={question.id}
           handleAnswer={handleAnswer}
           handleIgnore={handleIgnore}
