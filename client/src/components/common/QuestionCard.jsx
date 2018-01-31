@@ -43,6 +43,7 @@ class QuestionCard extends React.Component {
           </h5>
           <p className="card-text">{question.question}</p>
           <h6 className="card-subtitle mb-2 text-muted my-3">{moment(new Date(question.createdAt)).fromNow()}</h6>
+          {question.answer && <hr />}
           <p>{question.answer}</p>
         </div>
         {currentUser.username === question.receiver.username && !question.answer ?

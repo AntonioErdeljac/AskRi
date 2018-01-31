@@ -13,10 +13,12 @@ class Profile extends React.Component {
 
     this.state = {
       question: '',
+      showSuccess: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSuccessToggle = this.handleSuccessToggle.bind(this);
   }
 
   componentWillMount() {
@@ -30,10 +32,20 @@ class Profile extends React.Component {
 
   handleSubmit(ev) {
     const { onSubmit, match } = this.props;
+    const { showSuccess } = this.state;
     ev.preventDefault();
 
-    this.setState({question: ''});
-    onSubmit(agent.Questions.new(match.params.username, this.state.question));
+    if (!showSuccess) {
+      this.setState({ question: '', showSuccess: true });
+      onSubmit(agent.Questions.new(match.params.username, this.state.question));
+    } else {
+      this.setState({ showSuccess: false });
+    }
+  }
+
+  handleSuccessToggle() {
+    const { showSuccess } = this.state;
+    this.setState({ showSuccess: !showSuccess });
   }
 
   handleChange(value) {
@@ -42,6 +54,7 @@ class Profile extends React.Component {
 
   render() {
     const { currentUser, questions, match } = this.props;
+    const { showSuccess } = this.state;
     return (
       <div className="container mt-3">
         <div className="row mt-3">
@@ -50,8 +63,14 @@ class Profile extends React.Component {
               <div className="card-body">
                 <p className="card-text">
                   Pitaj <b>@{match.params.username}</b>
-                  <textarea value={this.state.question} onChange={ev => this.handleChange(ev.target.value)} placeholder="Postavi mi pitanje" className="form-control my-3" />
-                  <button onClick={this.handleSubmit} className="btn btn-primary">Pošalji</button>
+                  {showSuccess ?
+                    <div className="alert alert-success" role="alert">
+                    Vaša poruka je poslana!
+                    </div>
+                  :
+                    <textarea value={this.state.question} onChange={ev => this.handleChange(ev.target.value)} placeholder="Postavi mi pitanje" className="form-control my-3" />
+                  }
+                  <button onClick={this.handleSubmit} className="btn btn-primary">{showSuccess ? 'Pitaj ponovo' : 'Pošalji'}</button>
                 </p>
               </div>
             </div>

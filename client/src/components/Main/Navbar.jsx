@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { Input } from '../common';
 
@@ -8,7 +9,7 @@ const Navbar = (props) => {
   const { currentUser, onClickLogout } = props;
   return (
     <nav className="navbar navbar-expand-lg bg-white">
-      <a className="color-blue" href="#i">AskRi</a>
+      <Link to="/" className="color-blue" href="#i">AskRi</Link>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon color-blue" />
       </button>
