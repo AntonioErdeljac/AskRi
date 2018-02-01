@@ -1,6 +1,6 @@
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 
-import { auth, common, feed, profile } from './reducers';
+import { auth, common, feed, profile, search } from './reducers';
 import { authMiddleware, promiseMiddleware } from './middleware';
 
 const reducer = combineReducers({
@@ -8,6 +8,7 @@ const reducer = combineReducers({
   common,
   feed,
   profile,
+  search,
 });
 
 const store = createStore(reducer, applyMiddleware(promiseMiddleware, authMiddleware));

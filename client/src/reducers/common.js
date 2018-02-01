@@ -20,6 +20,11 @@ export default (state = {}, action) => {
         currentUser: action.error ? null : action.payload.user,
         redirectTo: action.error ? null : '/',
       };
+    case 'LOAD_SEARCH':
+      return {
+        ...state,
+        redirectTo: '/search',
+      };
     case 'LOGOUT':
       return {
         ...state,

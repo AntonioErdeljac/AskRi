@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import cn from 'classnames';
 
+import agent from '../../agent';
 import { Input } from '../common';
 
 class Navbar extends React.Component {
@@ -11,10 +12,20 @@ class Navbar extends React.Component {
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   handleChange(value) {
-    console.log(this, value);
+    const { loadResults } = this.props;
+
+    loadResults(agent.Profile.search(value));
+  }
+
+  handleSearch() {
+    const { loadSearch, users } = this.props;
+    if (users) {
+      loadSearch();
+    }
   }
 
   render() {
@@ -42,13 +53,20 @@ class Navbar extends React.Component {
                     </Link>
                   </li>
                   <li className="nav-item border-left">
-                    <Input
-                      hideLabel
-                      className="searchInput from-control-lg mt-1"
-                      name="search"
-                      handleChange={this.handleChange}
-                      placeholder="Pronadi korisnika"
-                    />
+                    <div className="input-group">
+                      <Input
+                        hideLabel
+                        className="searchInput from-control-lg mt-1"
+                        name="search"
+                        handleChange={this.handleChange}
+                        placeholder="Pronadi korisnika"
+                      />
+                      <span className="input-group-btn mt-1">
+                        <button onClick={this.handleSearch} className="btn btn-primary-search" type="button">
+                          <i className="fas fa-search" />
+                        </button>
+                      </span>
+                    </div>
                   </li>
                 </ul>
                 <ul className="navbar-nav float-right">
@@ -110,13 +128,32 @@ class Navbar extends React.Component {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto float-right">
                 <li className="nav-item border-left">
-                  <Input
-                    hideLabel
-                    className="searchInput from-control-lg mt-1"
-                    name="search"
-                    handleChange={this.handleChange}
-                    placeholder="Pronadi korisnika"
-                  />
+                  <div className="input-group">
+                    <Input
+                      hideLabel
+                      className="searchInput from-control-lg mt-1"
+                      name="search"
+                      handleChange={this.handleChange}
+                      placeholder="Pronadi korisnika"
+                    />
+                    <span className="input-group-btn mt-1">
+                      <button onClick={this.handleSearch} className="btn btn-primary-search" type="button">
+                        <i className="fas fa-search" />
+                      </button>
+                    </span>
+                  </div>
+                </li>
+              </ul>
+              <ul className="navbar-nav float-right">
+                <li className="mx-3">
+                  <Link to="/" className="btn btn-primary">
+                    Prijava
+                  </Link>
+                </li>
+                <li className="">
+                  <Link to="/" className="btn btn-primary">
+                    Registracija
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -136,18 +173,33 @@ class Navbar extends React.Component {
   }
 }
 
+Navbar.defaultProps = {
+  users: null,
+};
+
 Navbar.propTypes = {
   currentUser: PropTypes.shape({ username: PropTypes.string.isRequired }).isRequired,
   onClickLogout: PropTypes.func.isRequired,
+  loadResults: PropTypes.func.isRequired,
+  loadSearch: PropTypes.func.isRequired,
+  users: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 const mapDispatchToProps = dispatch => ({
   onClickLogout: () =>
     dispatch({ type: 'LOGOUT' }),
+  loadResults: payload =>
+    dispatch({ type: 'SEARCH_USERS', payload }),
+  loadSearch: () =>
+    dispatch({ type: 'LOAD_SEARCH' }),
+});
+
+const mapStateToProps = state => ({
+  ...state.search,
 });
 
 Navbar.propTypes = {
   location: PropTypes.shape({}).isRequired,
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(Navbar));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar));

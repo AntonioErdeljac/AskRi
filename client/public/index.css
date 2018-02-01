@@ -45,6 +45,8 @@ body, html {
 
 .searchInput {
   border-style: solid;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .success-message {
@@ -58,6 +60,13 @@ body, html {
 
 .full {
   height: 100%;
+}
+
+.btn-primary-search {
+  background-color: #2d89e5;
+  color: #fff;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .msg-unanswered {

@@ -49,6 +49,8 @@ const Questions = {
 const Profile = {
   get: username =>
     requests.get(`/profiles/${username}`),
+  search: username =>
+    requests.get(`/profiles/search?username=${username}`),
 };
 
 export default {

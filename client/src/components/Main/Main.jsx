@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
 
-import { Landing, Home, Profile, Navbar } from '../Main';
+import { Landing, Home, Profile, Navbar, SearchPage } from '../Main';
 
 class Main extends React.Component {
   componentWillReceiveProps(nextProps) {
@@ -24,6 +24,7 @@ class Main extends React.Component {
         <div className={cn({ content: currentUser, full: !currentUser })}>
           <Switch>
             <Route path="/" exact component={currentUser ? Home : Landing} />
+            <Route path="/search" exact component={SearchPage} />
             <Route path="/:username" exact component={Profile} />
           </Switch>
         </div>

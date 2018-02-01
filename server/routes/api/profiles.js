@@ -4,6 +4,15 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const auth = require('../auth');
 
+router.get('/search', auth.optional, (req, res, next) => {
+  const value = req.query.username;
+  if(value.length !== 0) {
+    User.find({ username: new RegExp(value, 'i') }).then((users) => {
+      return res.json({ users: users.map(user => user.toJSON()) });
+    }).catch(next);
+  }
+});
+
 router.param('username', (req, res, next, username) => {
   User.findOne({ username: username })
   .populate('questions')
@@ -21,8 +30,6 @@ router.get('/:username', auth.optional, (req, res, next) => {
   return res.json({profile: req.profile.toJSON()});
 });
 
-router.get('/:search', auth.optional, (req, res, next) => {
 
-});
 
 module.exports = router;

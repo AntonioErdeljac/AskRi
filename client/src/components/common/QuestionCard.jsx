@@ -56,7 +56,6 @@ class QuestionCard extends React.Component {
             >
               Ignoriraj
             </button>
-            <i className="fas fa-star fa-2x  c-favorite float-right" />
           </div>
       : null}
         {currentUser && currentUser.username === question.receiver.username && question.answer ?
