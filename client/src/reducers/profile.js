@@ -4,7 +4,6 @@ export default (state = {}, action) => {
       return {
         ...state,
         profile: action.payload[0].user,
-        questions: action.payload[1].questions,
       };
     case 'LOGOUT':
       return {};

@@ -16,32 +16,54 @@ class Feed extends React.Component {
 
     onLoad(agent.Questions.private());
   }
+
+  componentWillUnmount() {
+    const { onUnload } = this.props;
+
+    onUnload();
+  }
+
   handleIgnore(id) {
     const { onIgnore } = this.props;
     onIgnore(agent.Questions.delete(id), id);
   }
   render() {
     const { questions, currentUser } = this.props;
+    console.log(this.props);
     return (
       <div className="container mt-3">
         <div className="row mt-3">
+          {questions && questions.length === 0 &&
+          <div className="col-md-6 offset-md-3 col-12 mt-3">
+            <div className="card mt-3">
+              <div className="card-body text-center">
+                <h3 className="no-questions">
+                  Trenutno nema pitanja za tebe, podijeli ili stavi ovo na svoj story da biš dobio pitanja!
+                  <br />
+                  <hr />
+                  <a className="link-blue my-3 text-center special-link" href={`http://www.pitajri.com/${currentUser.username}`}>www.pitajri.com/{currentUser.username}</a>
+                </h3>
+              </div>
+            </div>
+          </div>}
+          {questions && questions.length > 0 &&
+          <div className="col-md-6 offset-md-3 col-12 mt-3">
+            <div className="card mt-3">
+              <div className="card-body text-center">
+                <h3 className="no-questions">
+                  Podijeli svoj link sa prijateljima!
+                  <br />
+                  <hr />
+                  <a className="link-blue my-3 text-center special-link" href={`http://www.pitajri.com/${currentUser.username}`}>www.pitajri.com/{currentUser.username}</a>
+                </h3>
+              </div>
+            </div>
+          </div>}
           <QuestionsList
             currentUser={currentUser}
             handleIgnore={this.handleIgnore}
             questions={questions}
           />
-          {questions && questions.length === 0 &&
-          <div className="col-md-6 offset-md-3 col-12 mt-3">
-            <div className="card">
-              <div className="card-body">
-                <h3 className="no-questions">
-                Trenutno nema pitanja za tebe, podijeli ili stavi na story svoj profil da biš dobio pitanja!
-                <br />
-                  <a className="link-blue my-3 special-link" href={`http://www.askri.com/${currentUser.username}`}>www.askri.com/{currentUser.username}</a>
-                </h3>
-              </div>
-            </div>
-          </div>}
         </div>
       </div>
     );
@@ -53,6 +75,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: 'FEED_PAGE_LOADED', payload }),
   onIgnore: (payload, id) =>
     dispatch({ type: 'REMOVE_QUESTION', payload, id }),
+  onUnload: () =>
+    dispatch({ type: 'FEED_PAGE_UNLOADED' }),
 });
 
 const mapStateToProps = state => ({

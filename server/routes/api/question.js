@@ -30,7 +30,7 @@ router.get('/private', auth.required, (req, res, next) => {
   User.findById(req.payload.id).then((user) => {
     if(!user) { return res.sendStatus(402); }
 
-    return Question.find({receiver: user})
+    return Question.find({ receiver: user })
     .sort({createdAt: 'desc'})
     .populate('receiver')
     .then(questions => {

@@ -18,6 +18,19 @@ body, html {
   font-family: 'Montserrat';
 }
 
+.link-inner {
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 7px;
+}
+
+.link-outer {
+  margin-top: 10px;
+  border-radius: 5px;
+  background-color: #2d89e5;
+  padding: 7px;
+}
+
 .border-left {
   border-left-style: solid;
   border-color: rgba(0,0,0,.5);
@@ -122,7 +135,7 @@ a {
 h1 {
   font-family: 'Montserrat';
   color: #fff;
-  font-size: 100px;
+  font-size: 70px;
 }
 
 h2 {
@@ -144,7 +157,7 @@ p {
 }
 
 .c-heading {
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 .c-favorite {
@@ -158,7 +171,8 @@ p {
 
 .no-questions {
   color: rgba(0,0,0,.7);
-  font-family: 'Open Sans';
+  font-size: 18px;
+  font-family: 'Montserrat';
 }
 
 .card {

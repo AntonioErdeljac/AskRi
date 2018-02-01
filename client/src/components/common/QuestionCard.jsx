@@ -44,7 +44,6 @@ class QuestionCard extends React.Component {
           </h5>
           <p className="card-text">{question.question}</p>
           <h6 className="card-subtitle mb-2 text-muted my-3">{moment(new Date(question.createdAt)).fromNow()}</h6>
-          {question.answer && <hr />}
           <p>{question.answer}</p>
         </div>
         {currentUser.username === question.receiver.username && !question.answer ?
@@ -58,6 +57,16 @@ class QuestionCard extends React.Component {
               Ignoriraj
             </button>
             <i className="fas fa-star fa-2x  c-favorite float-right" />
+          </div>
+      : null}
+        {currentUser.username === question.receiver.username && question.answer ?
+          <div className="card-footer">
+            <button
+              onClick={() => handleIgnore(question.id)}
+              className="btn btn-danger"
+            >
+              Izbriši
+            </button>
           </div>
       : null}
       </div>

@@ -19,6 +19,7 @@ class Profile extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSuccessToggle = this.handleSuccessToggle.bind(this);
+    this.handleIgnore = this.handleIgnore.bind(this);
   }
 
   componentWillMount() {
@@ -28,6 +29,12 @@ class Profile extends React.Component {
       agent.Profile.get(match.params.username),
       agent.Questions.byUsername(match.params.username),
     ]));
+  }
+
+  componentWillUnmount() {
+    const { onUnload } = this.props;
+
+    onUnload();
   }
 
   handleSubmit(ev) {
@@ -50,6 +57,11 @@ class Profile extends React.Component {
 
   handleChange(value) {
     this.setState({ question: value });
+  }
+
+  handleIgnore(id) {
+    const { onIgnore } = this.props;
+    onIgnore(agent.Questions.delete(id), id);
   }
 
   render() {
@@ -78,6 +90,7 @@ class Profile extends React.Component {
             </div>
           </div>
           <QuestionsList
+            handleIgnore={this.handleIgnore}
             currentUser={currentUser}
             questions={questions}
           />
@@ -92,10 +105,15 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: 'PROFILE_PAGE_LOADED', payload }),
   onSubmit: payload =>
     dispatch({ type: 'SEND_QUESTION', payload }),
+  onIgnore: (payload, id) =>
+    dispatch({ type: 'REMOVE_QUESTION', payload, id }),
+  onUnload: () =>
+    dispatch({ type: 'PROFILE_PAGE_UNLOADED' }),
 });
 
 const mapStateToProps = state => ({
   ...state.profile,
+  ...state.feed,
   currentUser: state.common.currentUser,
 });
 

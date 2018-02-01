@@ -1,5 +1,14 @@
 export default (state = {}, action) => {
   switch (action.type) {
+    case 'PROFILE_PAGE_LOADED':
+      return {
+        ...state,
+        questions: action.payload[1].questions,
+      };
+    case 'FEED_PAGE_UNLOADED':
+      return {};
+    case 'PROFILE_PAGE_UNLOADED':
+      return {};
     case 'FEED_PAGE_LOADED':
       return {
         ...state,
