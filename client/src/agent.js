@@ -3,7 +3,7 @@ import superagentPromise from 'superagent-promise';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = 'https://localhost:8000/api';
+const API_ROOT = 'http://localhost:8000/api';
 
 let token = null;
 
