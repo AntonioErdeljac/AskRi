@@ -12,7 +12,7 @@ const Navbar = (props) => {
     <span className="nav-span">
       <span className="d-none d-lg-block">
         <nav className="navbar fixed-top navbar-expand-lg bg-white">
-          <Link to="/" className="color-blue border-right" href="#i">PitajRi</Link>
+          <Link to="/" className="color-blue" href="#i">PitajRi</Link>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon color-blue" />
           </button>
