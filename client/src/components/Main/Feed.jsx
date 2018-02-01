@@ -29,7 +29,6 @@ class Feed extends React.Component {
   }
   render() {
     const { questions, currentUser } = this.props;
-    console.log(this.props);
     return (
       <div className="container mt-3">
         <div className="row mt-3">

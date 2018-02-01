@@ -21,4 +21,8 @@ router.get('/:username', auth.optional, (req, res, next) => {
   return res.json({profile: req.profile.toJSON()});
 });
 
+router.get('/:search', auth.optional, (req, res, next) => {
+
+});
+
 module.exports = router;

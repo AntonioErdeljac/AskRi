@@ -20,7 +20,7 @@ class Main extends React.Component {
     const { currentUser } = this.props;
     return (
       <span>
-        {currentUser && <Navbar currentUser={currentUser} />}
+        {<Navbar currentUser={currentUser} />}
         <div className={cn({ content: currentUser, full: !currentUser })}>
           <Switch>
             <Route path="/" exact component={currentUser ? Home : Landing} />

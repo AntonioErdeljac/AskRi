@@ -46,7 +46,7 @@ class QuestionCard extends React.Component {
           <h6 className="card-subtitle mb-2 text-muted my-3">{moment(new Date(question.createdAt)).fromNow()}</h6>
           <p>{question.answer}</p>
         </div>
-        {currentUser.username === question.receiver.username && !question.answer ?
+        {currentUser && currentUser.username === question.receiver.username && !question.answer ?
           <div className="card-footer">
             {this.state.showInput && <textarea onChange={ev => this.handleChange(ev.target.value)} className="form-control my-3" />}
             <button className="btn btn-primary" onClick={this.handleAnswer}>Odgovori</button>
@@ -59,7 +59,7 @@ class QuestionCard extends React.Component {
             <i className="fas fa-star fa-2x  c-favorite float-right" />
           </div>
       : null}
-        {currentUser.username === question.receiver.username && question.answer ?
+        {currentUser && currentUser.username === question.receiver.username && question.answer ?
           <div className="card-footer">
             <button
               onClick={() => handleIgnore(question.id)}
