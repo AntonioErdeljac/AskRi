@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import cn from 'classnames';
 
+import { Input } from '../common';
+
 const Navbar = (props) => {
   const { currentUser, onClickLogout, location } = props;
   return (
     <span className="nav-span">
       <span className="d-none d-lg-block">
         <nav className="navbar fixed-top navbar-expand-lg bg-white">
-          <Link to="/" className="color-blue" href="#i">AskRi</Link>
+          <Link to="/" className="color-blue border-right" href="#i">PitajRi</Link>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon color-blue" />
           </button>
@@ -26,6 +28,9 @@ const Navbar = (props) => {
                 <Link to={`/${currentUser.username}`} className={cn('nav-link', { active: location.pathname === `/${currentUser.username}` })}>
                   <i className="fas fa-user mx-3 icon-nav" />Moj Profil
                 </Link>
+              </li>
+              <li className="nav-item border-left">
+                <Input hideLabel className="searchInput from-control-lg mt-1" placeholder="Pronadi korisnika" />
               </li>
             </ul>
             <ul className="navbar-nav float-right">

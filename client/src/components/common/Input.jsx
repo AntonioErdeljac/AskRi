@@ -1,16 +1,17 @@
+import cn from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
 const Input = (props) => {
   const { handleChange, label, name, type, placeholder, className, hideLabel } = props;
   return (
-    <div className="form-group">
+    <div className={cn({ 'form-group': !hideLabel })}>
       {!hideLabel && <label htmlFor="exampleInputEmail1">{label}</label>}
       <input
         name={name}
         onChange={ev => handleChange(ev.target.value, name)}
         type={type || 'text'}
-        className={`${className} form-control c-input`}
+        className={`${className} form-control`}
         placeholder={placeholder}
       />
     </div>

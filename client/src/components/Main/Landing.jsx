@@ -55,7 +55,7 @@ class Landing extends React.Component {
       <div className="container-fluid special-bg">
         <div className="row">
           <div className="col-md-6 col-lg-4 offset-lg-4 offset-md-3 col-12 c-heading">
-            <h1 className="mt-3 text-center">AskRi</h1>
+            <h1 className="mt-3 text-center">PitajRi</h1>
             <p className="text-white text-center">Što Riječani misle o tebi?</p>
             <div className="card">
               <div className="card-body">
@@ -67,6 +67,7 @@ class Landing extends React.Component {
                     handleChange={this.handleChange}
                     placeholder="Vaše korisničko ime"
                     name="username"
+                    className="my-3"
                   /> : null}
                   <Input
                     hideLabel
@@ -74,6 +75,7 @@ class Landing extends React.Component {
                     handleChange={this.handleChange}
                     placeholder="Vaš email"
                     name="email"
+                    className="my-3"
                   />
                   <Input
                     hideLabel
@@ -81,6 +83,7 @@ class Landing extends React.Component {
                     handleChange={this.handleChange}
                     placeholder="Vaša lozinka"
                     name="password"
+                    className="my-3"
                   />
                   <button type="submit" className="btn btn-primary form-control">{login ? 'Prijava' : 'Registracija'}</button>
                   <small onClick={this.handleToggleType} className="form-text text-muted noviracun">{login ? 'Nemate račun?' : 'Već ste registrirani?'}</small>
