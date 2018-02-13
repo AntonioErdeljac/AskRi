@@ -92,6 +92,7 @@ Feed.propTypes = {
   onIgnore: PropTypes.func.isRequired,
   currentUser: PropTypes.shape({}).isRequired,
   questions: PropTypes.arrayOf(PropTypes.shape({})),
+  onUnload: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Feed);

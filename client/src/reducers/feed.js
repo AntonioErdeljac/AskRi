@@ -22,12 +22,13 @@ export default (state = {}, action) => {
     case 'SUBMIT_ANSWER':
       return {
         ...state,
-        questions: state.questions.map((question) => {
+        questions: action.payload.question ? state.questions.map((question) => {
           if (question.id === action.payload.question.id) {
             return action.payload.question;
           }
           return question;
-        }),
+        }) : state.questions,
+        errors: action.error ? action.payload.errors : null,
       };
     case 'LOGOUT':
       return {};

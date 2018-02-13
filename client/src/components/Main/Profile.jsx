@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import agent from '../../agent';
-import { QuestionsList } from '../common';
+import { QuestionsList, Errors } from '../common';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -29,6 +29,12 @@ class Profile extends React.Component {
       agent.Profile.get(match.params.username),
       agent.Questions.byUsername(match.params.username),
     ]));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ showSuccess: false });
+    }
   }
 
   componentWillUnmount() {
@@ -65,7 +71,7 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { currentUser, questions, match, loadedProfile, profilePageLoaded } = this.props;
+    const { currentUser, questions, match, loadedProfile, profilePageLoaded, errors } = this.props;
     const { showSuccess } = this.state;
     if (loadedProfile && profilePageLoaded) {
       return (
@@ -76,6 +82,7 @@ class Profile extends React.Component {
                 <div className="card-body">
                   <div className="card-text">
                     Pitaj <b>@{match.params.username}</b>
+                    <Errors errors={errors} />
                     {showSuccess ?
                       <div className=" my-3 success-message">
                         <div>
@@ -134,6 +141,7 @@ Profile.defaultProps = {
   questions: [],
   loadedProfile: null,
   profilePageLoaded: false,
+  errors: {},
 };
 
 Profile.propTypes = {
@@ -146,6 +154,7 @@ Profile.propTypes = {
   onIgnore: PropTypes.func.isRequired,
   onUnload: PropTypes.func.isRequired,
   profilePageLoaded: PropTypes.bool,
+  errors: PropTypes.shape({}),
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Profile));

@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import agent from '../../agent';
 
+import { Errors } from '../common';
+
 class QuestionCard extends React.Component {
   constructor(props) {
     super(props);
@@ -34,7 +36,7 @@ class QuestionCard extends React.Component {
   }
 
   render() {
-    const { currentUser, handleIgnore, question } = this.props;
+    const { currentUser, handleIgnore, question, errors } = this.props;
     return (
       <div className="card my-3">
         <div className="card-body">
@@ -48,8 +50,9 @@ class QuestionCard extends React.Component {
         </div>
         {currentUser && currentUser.username === question.receiver.username && !question.answer ?
           <div className="card-footer">
+            <Errors errors={errors} />
             {this.state.showInput && <textarea onChange={ev => this.handleChange(ev.target.value)} className="form-control my-3" />}
-            <button className="btn btn-primary" onClick={this.handleAnswer}>Odgovori</button>
+            <button disabled={this.state.answer.length === 0 && this.state.showInput} className="btn btn-primary" onClick={this.handleAnswer}>Odgovori</button>
             <button
               onClick={() => handleIgnore(question.id)}
               className="btn btn-danger mx-3"
@@ -76,6 +79,7 @@ class QuestionCard extends React.Component {
 QuestionCard.defaultProps = {
   currentUser: null,
   handleIgnore: null,
+  errors: null,
 };
 
 QuestionCard.propTypes = {
@@ -83,6 +87,7 @@ QuestionCard.propTypes = {
   question: PropTypes.shape({}).isRequired,
   currentUser: PropTypes.shape({}),
   handleIgnore: PropTypes.func,
+  errors: PropTypes.shape({}),
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -90,4 +95,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: 'SUBMIT_ANSWER', payload }),
 });
 
-export default connect(null, mapDispatchToProps)(QuestionCard);
+const mapStateToProps = state => ({
+  errors: state.feed.errors,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionCard);
