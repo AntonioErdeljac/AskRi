@@ -3,7 +3,8 @@ export default (state = {}, action) => {
     case 'PROFILE_PAGE_LOADED':
       return {
         ...state,
-        profile: action.payload[0].user,
+        loadedProfile: action.payload ? action.payload[0].profile : null,
+        profilePageLoaded: true,
       };
     case 'LOGOUT':
       return {};

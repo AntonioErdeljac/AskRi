@@ -13,6 +13,12 @@ class Navbar extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  handleLogout() {
+    const { handleLogout } = this.props;
+    handleLogout();
   }
 
   handleChange(value) {
@@ -107,7 +113,7 @@ class Navbar extends React.Component {
                     <Link to={`/${currentUser.username}`} className={cn('nav-link', { active: location.pathname === `/${currentUser.username}` })}><i className="fas fa-user icon-nav" /></Link>
                   </div>
                   <div className="col-4">
-                    <Link to="/settings" className={cn('nav-link', { active: location.pathname === '/settings' })}><i className="fas fa-cogs icon-nav" /></Link>
+                    <button onClick={this.handleLogout} className="nav-link"><i className="fas fa-sign-out-alt icon-nav" /></button>
                   </div>
                 </div>
               </div>
@@ -179,9 +185,10 @@ Navbar.defaultProps = {
 
 Navbar.propTypes = {
   currentUser: PropTypes.shape({ username: PropTypes.string.isRequired }).isRequired,
-  onClickLogout: PropTypes.func.isRequired,
+  handleLogout: PropTypes.func.isRequired,
   loadResults: PropTypes.func.isRequired,
   loadSearch: PropTypes.func.isRequired,
+  onClickLogout: PropTypes.func.isRequired,
   users: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
@@ -192,6 +199,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: 'SEARCH_USERS', payload }),
   loadSearch: () =>
     dispatch({ type: 'LOAD_SEARCH' }),
+  handleLogout: () =>
+    dispatch({ type: 'LOGOUT' }),
 });
 
 const mapStateToProps = state => ({

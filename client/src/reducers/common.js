@@ -7,6 +7,11 @@ export default (state = {}, action) => {
         currentUser: action.payload ? action.payload.user : null,
         appLoaded: true,
       };
+    case 'PROFILE_PAGE_LOADED':
+      return {
+        ...state,
+        redirectTo: action.payload ? null : '/',
+      };
     case 'REDIRECT':
       return {
         ...state,

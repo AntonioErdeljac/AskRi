@@ -3,7 +3,7 @@ export default (state = {}, action) => {
     case 'PROFILE_PAGE_LOADED':
       return {
         ...state,
-        questions: action.payload[1].questions,
+        questions: action.payload ? action.payload[1].questions : [],
       };
     case 'FEED_PAGE_UNLOADED':
       return {};

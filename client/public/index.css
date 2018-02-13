@@ -117,6 +117,10 @@ body, html {
   bottom: 0;
 }
 
+.color-blue-normal {
+  color: #2d89e5;
+}
+
 .bg-primary {
   background-color: #2d89e5;
 }

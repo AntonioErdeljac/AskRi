@@ -65,38 +65,50 @@ class Profile extends React.Component {
   }
 
   render() {
-    const { currentUser, questions, match } = this.props;
+    const { currentUser, questions, match, loadedProfile, profilePageLoaded } = this.props;
     const { showSuccess } = this.state;
-    return (
-      <div className="container mt-3">
-        <div className="row mt-3">
-          <div className="col-md-6 offset-md-3 col-12 mt-3">
-            <div className="card mt-3">
-              <div className="card-body">
-                <div className="card-text">
-                  Pitaj <b>@{match.params.username}</b>
-                  {showSuccess ?
-                    <div className=" my-3 success-message">
-                      <div>
-                        Vaša poruka je poslana!
+    if (loadedProfile && profilePageLoaded) {
+      return (
+        <div className="container mt-3">
+          <div className="row mt-3">
+            <div className="col-md-6 offset-md-3 col-12 mt-3">
+              <div className="card mt-3">
+                <div className="card-body">
+                  <div className="card-text">
+                    Pitaj <b>@{match.params.username}</b>
+                    {showSuccess ?
+                      <div className=" my-3 success-message">
+                        <div>
+                          Vaša poruka je poslana!
+                        </div>
                       </div>
-                    </div>
-                  :
-                    <textarea value={this.state.question} onChange={ev => this.handleChange(ev.target.value)} placeholder="Postavi mi pitanje" className="form-control my-3" />
-                  }
-                  <button onClick={this.handleSubmit} className="btn btn-primary">{showSuccess ? 'Pitaj ponovo' : 'Pošalji'}</button>
+                    :
+                      <textarea value={this.state.question} onChange={ev => this.handleChange(ev.target.value)} placeholder="Postavi mi pitanje" className="form-control my-3" />
+                    }
+                    <button onClick={this.handleSubmit} className="btn btn-primary">{showSuccess ? 'Pitaj ponovo' : 'Pošalji'}</button>
+                  </div>
                 </div>
               </div>
             </div>
+            <QuestionsList
+              handleIgnore={this.handleIgnore}
+              currentUser={currentUser}
+              questions={questions}
+            />
           </div>
-          <QuestionsList
-            handleIgnore={this.handleIgnore}
-            currentUser={currentUser}
-            questions={questions}
-          />
         </div>
-      </div>
-    );
+      );
+    }
+    if (!profilePageLoaded) {
+      return (
+        <div className="container mt-3">
+          <div className="row mt-3">
+            <div className="col-md-6 offset-md-3 col-12 text-center mt-3" />
+          </div>
+        </div>
+      );
+    }
+    return null;
   }
 }
 
@@ -120,6 +132,8 @@ const mapStateToProps = state => ({
 Profile.defaultProps = {
   currentUser: null,
   questions: [],
+  loadedProfile: null,
+  profilePageLoaded: false,
 };
 
 Profile.propTypes = {
@@ -128,6 +142,10 @@ Profile.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   currentUser: PropTypes.shape({}),
   questions: PropTypes.arrayOf(PropTypes.shape({})),
+  loadedProfile: PropTypes.shape({}),
+  onIgnore: PropTypes.func.isRequired,
+  onUnload: PropTypes.func.isRequired,
+  profilePageLoaded: PropTypes.bool,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Profile));
