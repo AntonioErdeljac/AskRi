@@ -90,7 +90,7 @@ Feed.defaultProps = {
 Feed.propTypes = {
   onLoad: PropTypes.func.isRequired,
   onIgnore: PropTypes.func.isRequired,
-  currentUser: PropTypes.shape({}).isRequired,
+  currentUser: PropTypes.shape({ username: PropTypes.string.isRequired }).isRequired,
   questions: PropTypes.arrayOf(PropTypes.shape({})),
   onUnload: PropTypes.func.isRequired,
 };
