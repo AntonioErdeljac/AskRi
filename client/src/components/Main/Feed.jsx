@@ -50,7 +50,7 @@ class Feed extends React.Component {
             <div className="card mt-3">
               <div className="card-body text-center">
                 <h3 className="no-questions">
-                  Podijeli svoj link sa prijateljima!
+                  Podijeli svoj link!
                   <br />
                   <hr />
                   <a className="link-blue my-3 text-center special-link" href={`http://www.pitajri.com/${currentUser.username}`}>www.pitajri.com/{currentUser.username}</a>
