@@ -42,7 +42,7 @@ class QuestionCard extends React.Component {
         <div className="card-body">
           <h5 className="card-title">
             <img src="http://unmr-nl.science.uu.nl/sites/default/files/user_placeholder_man_0.jpg" height="50" width="50" className="nav-img mr-3" alt="" />
-                  Riječanin <span className="text-muted">pita:</span>
+            Riječanin <span className="text-muted">pita:</span>
           </h5>
           <p className="card-text">{question.question}</p>
           <h6 className="card-subtitle mb-2 text-muted my-3">{moment(new Date(question.createdAt)).fromNow()}</h6>
