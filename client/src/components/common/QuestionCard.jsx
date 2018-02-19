@@ -25,13 +25,13 @@ class QuestionCard extends React.Component {
   }
 
   handleAnswer() {
-    const { showInput } = this.state;
+    const { showInput, answer } = this.state;
     const { submitAnswer, question } = this.props;
 
     if (!showInput) {
-      this.setState({ showInput: !this.state.showInput });
+      this.setState({ showInput: !showInput });
     } else {
-      submitAnswer(agent.Questions.answer(question.id, this.state.answer));
+      submitAnswer(agent.Questions.answer(question.id, answer));
     }
   }
 
