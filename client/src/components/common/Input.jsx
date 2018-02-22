@@ -6,7 +6,7 @@ const Input = (props) => {
   const { handleChange, label, name, type, placeholder, className, hideLabel } = props;
   return (
     <div className={cn({ 'form-group': !hideLabel })}>
-      {!hideLabel && <label htmlFor="exampleInputEmail1">{label}</label>}
+      {!hideLabel && <label htmlFor={name}>{label}</label>}
       <input
         name={name}
         onChange={ev => handleChange(ev.target.value, name)}
